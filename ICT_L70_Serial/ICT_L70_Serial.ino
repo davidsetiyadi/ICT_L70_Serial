@@ -8,7 +8,7 @@
   https://www.youtube.com/watch?v=M2E2yWcKJfc
   https://kriss-sport.com/dl-files/thirdParty/bv20_operations_manual.pdf
   https://www.youtube.com/watch?v=gegpO70tos8
-  
+
   PIN 2 rx
   PIN 3 TX
   PIN 5 GND
@@ -51,20 +51,52 @@ void setup() {
 
 void loop() {
   if (Serial.available()) {        // If anything comes in Serial (USB),
-    NoteAcceptor.write(Serial.read());  // read it and send it out Serial1 (pins 0 & 1)
-    Serial.print("I received x: ");
+  byte byteln2 = Serial.read();
+  if (byteln2 == 185){
+    //Serial.println(byteln);//give back
+  } 
+  
+  if (byteln2 ==  89){
+    digitalWrite(ledPin, HIGH);
+    delay(1000);
+    digitalWrite(ledPin, LOW);
+  }
+  if (byteln2 == 'Y'){
+    NoteAcceptor.write(02);
+    digitalWrite(ledPin, HIGH);
+    delay(5000);
+    digitalWrite(ledPin, LOW);
     
-    Serial.println( Serial.read());
-    Serial.println("**byteIn2**");
+  }
+  if (byteln2 == 'E'){//enable Test
+   NoteAcceptor.write(62);
+    digitalWrite(ledPin, HIGH);
+    delay(5000);
+    digitalWrite(ledPin, LOW);
+   
+  }
+   if (byteln2 == 'D'){//Disable Test
+   NoteAcceptor.write(94);
+    digitalWrite(ledPin, HIGH);
+    delay(5000);
+    digitalWrite(ledPin, LOW);
+    
+  }
+  
+    //NoteAcceptor.write(Serial.read());  // read it and send it out Serial1 (pins 0 & 1)
+    //Serial.print("I received x: ");
+    
+    //Serial.println( Serial.read());
+    //Serial.println("**byteIn2**");
 
-     if (Serial.available() > 0) {
+    // if (Serial.available() > 0) {
       // read the incoming byte:
       //incomingByte = Serial.read();
 
       // say what you got:
-      Serial.print("I received: ");
+    //  Serial.print("I received: ");
       //Serial.println(incomingByte, DEC);
-    }
+   // }
   }
   /*
     // if (byteInx == 255){
@@ -79,7 +111,7 @@ void loop() {
   // Serial.println(buttonState);
   // delay(5000);
   // }
-  if (buttonState2){
+  if (buttonState2){//manual Test
   Serial.println(4);
   delay(5000);
   }
